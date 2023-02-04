@@ -49,14 +49,10 @@ class ClienteController extends Controller
             'telefono' => 'required',
             'observaciones' => 'required|max:250'
         ]);
-        // 'nombre','imagen','cedula','correo','telefono','observaciones'
+        
         $nombreimagen = time() . '.' . $request->imagen->extension();
 
         $request->imagen->move(public_path('imagenes/clientes'), $nombreimagen);
-
-        // return response()->json($nombreimagen);
-
-        // $datosEmpleado = request()->except('_token');
 
         $cedularep = Cliente::where('cedula', $request->cedula)->get();
         $correorep = Cliente::where('correo', $request->correo)->get();
@@ -94,8 +90,6 @@ class ClienteController extends Controller
         $cliente = Cliente::where('id', $id)->first();
 
         $serviciosAsignados = Servicio::whereIn('id', json_decode($cliente->servicio_id))->get();
-
-        // return response()->json($serviciosAsignados);
 
         $clientes = Cliente::all();
         $servicios = Servicio::all();
@@ -179,7 +173,7 @@ class ClienteController extends Controller
             $cliente->correo         = $request->correo;
             $cliente->telefono       = $request->telefono;
             $cliente->observaciones  = $request->observaciones;
-            
+
             $cliente->update();
 
             Session::flash('actualizado');

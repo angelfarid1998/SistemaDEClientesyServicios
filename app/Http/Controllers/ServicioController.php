@@ -50,7 +50,6 @@ class ServicioController extends Controller
             'observaciones' => 'required|max:250'
         ]);
         
-        // return response()->json($request);
         $nombreimagen = time(). '.' . $request->imagen->extension();
 
         $request->imagen->move(public_path('imagenes/servicios'), $nombreimagen);
